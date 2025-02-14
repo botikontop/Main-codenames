@@ -1,0 +1,615 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-align: center;
+    background: linear-gradient(to right, #ff7e5f, #feb47b); /* Default theme */
+    color: #333;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background 0.5s ease;
+  }
+  
+  .container {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    width: 100%;
+  }
+  
+  h1 {
+    color: #444;
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  #theme-switcher {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+  }
+  
+  #theme-button {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #333;
+    color: rgb(255, 255, 255);
+    transition: background-color 0.3s ease;
+  }
+  
+  #theme-button:hover {
+    background-color: #555;
+  }
+  
+  #theme-options {
+    display: none;
+    position: absolute;
+    top: 40px;
+    right: 0;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+  }
+  
+  #theme-options button {
+    display: block;
+    width: 100%;
+    padding: 5px 10px;
+    margin: 5px 0;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #333;
+    color: white;
+    transition: background-color 0.3s ease;
+  }
+  
+  #theme-options button:hover {
+    background-color: #555;
+  }
+  
+  #current-team {
+    display: inline-block;
+    padding: 10px 20px;
+    font-weight: bold;
+    border-radius: 25px;
+    color: #ffffff;
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .Red-team {
+    background-color: #ff6b6b;
+  }
+  
+  .Blue-team {
+    background-color: #6b6bff;
+  }
+  
+  #score {
+    display: flex;
+    justify-content: space-around;
+    margin: 20px 0;
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+  
+  #timer {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 20px 0;
+    color: #555;
+  }
+  
+  #board {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 15px;
+    width: 100%;
+    max-width: 600px;
+    margin: 20px auto;
+  }
+  
+  .card {
+    width: 100%;
+    height: 80px;
+    background-color: #f8f9fa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    font-size: 1rem;
+    color: #333;
+    border: 2px solid transparent;
+  }
+  
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+  }
+  
+  .card.revealed {
+    pointer-events: none;
+  }
+  
+  .Red {
+    background-color: #ff6b6b !important;
+    color: white;
+  }
+  
+  .Blue {
+    background-color: #6b6bff !important;
+    color: white;
+  }
+  
+  .Neutral {
+    background-color: #ddd !important;
+    color: black;
+  }
+  
+  .Assassin {
+    background-color: #333 !important;
+    color: white;
+  }
+  
+  #clue-section {
+    margin-top: 30px;
+  }
+  
+  #clue-input, #clue-number {
+    padding: 12px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    margin-right: 10px;
+    font-size: 1rem;
+    width: 150px;
+    transition: border-color 0.3s ease;
+  }
+  
+  #clue-input:focus, #clue-number:focus {
+    border-color: #6b6bff;
+    outline: none;
+  }
+  
+  #submit-clue {
+    padding: 12px 24px;
+    font-size: 1rem;
+    border: none;
+    background-color: #6b6bff;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  #submit-clue:hover {
+    background-color: #5a5ae0;
+  }
+  
+  #message {
+    margin-top: 20px;
+    font-size: 1.2rem;
+    color: #555;
+    font-weight: bold;
+  }
+  
+  #new-game, #show-words {
+    margin-top: 20px;
+    padding: 12px 24px;
+    font-size: 1rem;
+    border: none;
+    background-color: #333;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-right: 10px;
+  }
+  
+  #new-game:hover, #show-words:hover {
+    background-color: #555;
+  }
+  
+  /* Themes */
+  body.dark {
+    background: linear-gradient(to right, #2c3e50, #34495e);
+    color: #000000;
+  }
+  
+  body.ocean {
+    background: linear-gradient(to right, #1e3c72, #2a5298);
+    color: #000000;
+  }
+  
+  body.forest {
+    background: linear-gradient(to right, #2e8544, #3aa655);
+    color: #000000;
+  }
+  
+  /* Spymaster View Modal */
+  .modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 300px;
+    width: 100%;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  }
+  
+  .modal-content h2 {
+    margin-bottom: 20px;
+    color: #444;
+    text-align: center;
+  }
+  
+  .modal-content ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .modal-content ul li {
+    margin: 10px 0;
+    font-size: 1rem;
+    color: #555;
+    padding: 10px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .modal-content ul li span {
+    padding: 5px 10px;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+  }
+  
+  /* Team Colors */
+  .modal-content ul li .red {
+    background-color: #ff6b6b;
+  }
+  
+  .modal-content ul li .blue {
+    background-color: #6b6bff;
+  }
+  
+  .modal-content ul li .neutral {
+    background-color: #ddd;
+    color: #333;
+  }
+  
+  .modal-content ul li .assassin {
+    background-color: #333;
+    color: white;
+  }
+  
+  .close-modal {
+    padding: 10px 20px;
+    background-color: #ff6b6b;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: block;
+    margin: 20px auto 0;
+  }
+  
+  .close-modal:hover {
+    background-color: #e55a5a;
+  }
+
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-align: center;
+    background: linear-gradient(to right, #ff7e5f, #feb47b); /* Default theme */
+    color: #333;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background 0.5s ease;
+  }
+
+ .container {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    width: 100%;
+ }
+
+ /* Spymaster View Modal */
+ .modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+ }
+
+ .modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 320px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+ }
+
+ .modal-content h2 {
+    margin-bottom: 15px;
+    color: #444;
+    text-align: center;
+    font-size: 1.2rem;
+ }
+
+ .category-section {
+    margin-bottom: 15px;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 10px;
+ }
+
+ .category-title {
+    font-weight: bold;
+    margin: 10px 0;
+    padding: 5px;
+    border-radius: 4px;
+    text-align: center;
+ }
+
+ .category-title.red { background: #ff6b6b55; color: #cc0000; }
+ .category-title.blue { background: #6b6bff55; color: #0000cc; }
+ .category-title.neutral { background: #dddddd55; color: #666; }
+ .category-title.assassin { background: #33333355; color: #fff; }
+
+ .spymaster-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 5px;
+ }
+
+ .spymaster-list li {
+    padding: 6px;
+    border-radius: 4px;
+    background: #f8f8f8;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.85rem;
+ }
+
+ .spymaster-list li span {
+    padding: 2px 5px;
+    border-radius: 3px;
+    color: white;
+    font-weight: bold;
+    font-size: 0.7rem;
+    margin-left: 10px;
+ }
+
+ .spymaster-list li .red { background-color: #ff6b6b; }
+ .spymaster-list li .blue { background-color: #6b6bff; }
+ .spymaster-list li .neutral { background-color: #ddd; color: #333; }
+ .spymaster-list li .assassin { background-color: #333; color: white; }
+
+ .close-modal {
+    padding: 10px 20px;
+    background-color: #ff6b6b;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: block;
+    margin: 20px auto 0;
+ }
+
+ .close-modal:hover {
+    background-color: #e55a5a;
+ }
+
+ .card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensures the image covers the card without distortion */
+  border-radius: 10px; /* Match the card's border radius */
+ }
+ .zoom-controls {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  gap: 10px;
+  z-index: 1000;
+ }
+
+ #zoom-in, #zoom-out {
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 50%;
+  background: #6b6bff;
+  color: white;
+  font-size: 1.5em;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+ }
+
+ #zoom-in:hover, #zoom-out:hover {
+  background: #5a5ae0;
+  transform: scale(1.1);
+ }
+
+ .card {
+  position: relative;
+  overflow: hidden;
+ }
+
+ .reveal-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  border-radius: 10px;
+  color: white;
+  font-weight: bold;
+  text-align: center;
+  padding: 10px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 2;
+ }
+
+ .card.revealed .reveal-overlay {
+  opacity: 1;
+ }
+
+ .card.revealed .card-image {
+  filter: brightness(0.3);
+ }
+
+ .reveal-overlay.Red { background: rgba(255, 107, 107, 0.95); }
+ .reveal-overlay.Blue { background: rgba(107, 107, 255, 0.95); }
+ .reveal-overlay.Neutral { background: rgba(221, 221, 221, 0.95); color: #333; }
+ .reveal-overlay.Assassin { background: rgba(51, 51, 51, 0.95); }
+
+ .team-label {
+  font-size: 1.2em;
+  text-transform: uppercase;
+  margin-bottom: 5px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+ }
+
+ .word-text {
+  font-size: 0.9em;
+ }
+
+ /* Remove these lines */
+ .team-label {
+  font-size: 1.2em;
+  text-transform: uppercase;
+  margin-bottom: 5px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+ }
+
+ /* Add to style.css */
+ .chat-container {
+  position: fixed;
+  right: 20px;
+  top: 20px;
+  width: 250px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+ }
+
+ .chat-header {
+  padding: 15px;
+  background: #6b6bff;
+  color: white;
+  border-radius: 10px 10px 0 0;
+  font-weight: bold;
+ }
+
+ .chat-messages {
+  height: 400px;
+  overflow-y: auto;
+  padding: 10px;
+ }
+
+ .chat-message {
+  margin: 8px 0;
+  padding: 8px;
+  border-radius: 8px;
+  background: #f1f1f1;
+  font-size: 0.9em;
+ }
+
+ .chat-message.red {
+  background: #ff6b6b55;
+  border-left: 3px solid #ff6b6b;
+ }
+
+ .chat-message.blue {
+  background: #6b6bff55;
+  border-left: 3px solid #6b6bff;
+ }
+
+ .chat-message span {
+  display: block;
+  font-size: 0.8em;
+  color: #666;
+  margin-top: 4px;
+ }
+
+ /* Updated Chat CSS */
+ .chat-container {
+  position: fixed;
+  left: calc(50% + 430px); /* 50% (center) + 400px (half of 800px container) + 30px gap */
+  top: 20px;
+  width: 250px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  transform: translateX(0); /* Remove any potential translation */
+ }
+
+ /* Updated Chat CSS */
+ .chat-container {
+  position: absolute;
+  left: calc(100% + 30px); /* 30px right of container */
+  top: 0;
+  width: 250px;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+ }

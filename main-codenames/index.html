@@ -1,0 +1,50 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SimpleCodeNamesGame</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <div class="zoom-controls">
+      <button id="zoom-in">+</button>
+      <button id="zoom-out">-</button>
+    </div>
+    
+    <h1>CodeNames</h1>
+    
+    <div id="theme-switcher">
+      <button id="theme-button">თემები</button>
+      <div id="theme-options">
+        <button data-theme="default">დეფოლტი</button>
+        <button data-theme="dark">ბნელი</button>
+        <button data-theme="ocean">ოკეანე</button>
+        <button data-theme="forest">ტყე</button>
+      </div>
+    </div>
+
+    <div id="current-team" class="Red-team">წითელის ჯერი</div>
+    
+    <div id="score">
+      <div>წითლები: <span id="red-score">0</span></div>
+      <div>ლურჯები: <span id="blue-score">0</span></div>
+    </div>
+    
+    <div id="timer">დარჩენილი დრო: 30წმ</div>
+    <div id="board"></div>
+    
+    <div id="controls">
+      <button id="new-game">ახალი თამაში</button>
+      <button id="show-words">სიტყვების ნახვა სპაისთვის</button>
+    </div>
+    
+    <div id="message"></div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
